@@ -11,6 +11,7 @@
     <title>Landing Page</title>
 </head>
 <body>
+<h1>Welcome to Customer Management - Web Application</h1>
 <form action="/customers">
     <input type="submit" value="Let's start!">
 </form>

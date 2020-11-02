@@ -21,6 +21,7 @@
         <td>Name</td>
         <td>Email</td>
         <td>Address</td>
+        <td>Image</td>
         <td>Edit</td>
         <td>Delete</td>
     </tr>
@@ -29,8 +30,9 @@
             <td><a href="/customers?action=view&id=${customer.getId()}">${customer.getName()}</a></td>
             <td>${customer.getEmail()}</td>
             <td>${customer.getAddress()}</td>
-            <td><a href="/customers?action=edit&id=${customer.getId()}">edit</a></td>
-            <td><a href="/customers?action=delete&id=${customer.getId()}">delete</a></td>
+            <td><img src="${customer.getImage()}" alt="Image 1" width="50px"></td>
+            <td><a href="/customers?action=edit&id=${customer.getId()}">EDIT</a></td>
+            <td><a href="/customers?action=delete&id=${customer.getId()}">DELETE</a></td>
         </tr>
     </c:forEach>
 </table>

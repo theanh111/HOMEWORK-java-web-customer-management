@@ -20,6 +20,9 @@ public class CustomerServlet extends HttpServlet {
     private CustomerService customerService = new CustomerServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -32,6 +35,7 @@ public class CustomerServlet extends HttpServlet {
                 updateCustomer(request, response);
                 break;
             case "delete":
+                deleteCustomer(request, response);
                 break;
             default:
                 break;
@@ -39,6 +43,9 @@ public class CustomerServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -51,8 +58,10 @@ public class CustomerServlet extends HttpServlet {
                 showEditForm(request, response);
                 break;
             case "delete":
+                showDeleteForm(request, response);
                 break;
             case "view":
+                viewCustomer(request, response);
                 break;
             default:
                 listCustomers(request, response);
@@ -89,8 +98,9 @@ public class CustomerServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
+        String image = request.getParameter("image");
         int id = (int) (Math.random() * 10000);
-        Customer customer = new Customer(id, name, email, address);
+        Customer customer = new Customer(id, name, email, address, image);
         this.customerService.save(customer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create.jsp");
         request.setAttribute("message", "New customer was created!");
@@ -147,6 +157,60 @@ public class CustomerServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private void viewCustomer(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Customer customer = this.customerService.findById(id);
+        RequestDispatcher dispatcher;
+        if (customer == null) {
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            request.setAttribute("customer", customer);
+            dispatcher = request.getRequestDispatcher("customer/view.jsp");
+        }
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Customer customer = this.customerService.findById(id);
+        RequestDispatcher dispatcher;
+        if (customer == null) {
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            request.setAttribute("customer", customer);
+            dispatcher = request.getRequestDispatcher("customer/delete.jsp");
+        }
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Customer customer = this.customerService.findById(id);
+        RequestDispatcher dispatcher;
+        if (customer == null) {
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            this.customerService.remove(id);
+            try {
+//                dispatcher = request.getRequestDispatcher("customer/delete.jsp");
+                response.sendRedirect("/customers");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
