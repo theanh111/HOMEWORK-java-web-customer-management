@@ -137,6 +137,7 @@ public class CustomerServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
+        String image = request.getParameter("image");
         Customer customer = this.customerService.findById(id);
         RequestDispatcher dispatcher;
         if (customer == null) {
@@ -145,6 +146,7 @@ public class CustomerServlet extends HttpServlet {
             customer.setName(name);
             customer.setEmail(email);
             customer.setAddress(address);
+            customer.setImage(image);
             this.customerService.update(id, customer);
             request.setAttribute("customer", customer);
             request.setAttribute("message", "Customer information was updated!");

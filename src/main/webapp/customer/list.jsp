@@ -10,31 +10,52 @@
 <html>
 <head>
     <title>Customer List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <h1>Customers</h1>
 <p>
-    <a href="/customers?action=create">Create new customer</a>
+    <a href="/customers?action=create" class="btn btn-success">Create new customer</a>
 </p>
-<table border="1">
+<table border="1" cellpadding="10px">
     <tr>
-        <td>Name</td>
-        <td>Email</td>
-        <td>Address</td>
-        <td>Image</td>
-        <td>Edit</td>
-        <td>Delete</td>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Image</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     <c:forEach items='${requestScope["customers"]}' var="customer">
         <tr>
-            <td><a href="/customers?action=view&id=${customer.getId()}">${customer.getName()}</a></td>
+            <th><a href="/customers?action=view&id=${customer.getId()}">${customer.getName()}</a></th>
             <td>${customer.getEmail()}</td>
             <td>${customer.getAddress()}</td>
-            <td><img src="${customer.getImage()}" alt="Image 1" width="50px"></td>
-            <td><a href="/customers?action=edit&id=${customer.getId()}">EDIT</a></td>
-            <td><a href="/customers?action=delete&id=${customer.getId()}">DELETE</a></td>
+            <td><img src="${customer.getImage()}" alt="Image" width="100px" height="100px"></td>
+            <th><a href="/customers?action=edit&id=${customer.getId()}" class="btn btn-secondary">EDIT</a></th>
+            <th><a href="/customers?action=delete&id=${customer.getId()}" class="btn btn-danger">DELETE</a></th>
         </tr>
     </c:forEach>
 </table>
 </body>
+<style>
+    body {
+        font-family: Arial;
+        font-size: larger;
+    }
+
+    th {
+        font-weight: bold;
+    }
+</style>
 </html>

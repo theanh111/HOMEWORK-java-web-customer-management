@@ -16,4 +16,15 @@
     <input type="submit" value="Let's start!">
 </form>
 </body>
+<style>
+    body {
+        font-family: Arial;
+        font-size: larger;
+    }
+    input{
+        font-size: larger;
+        width: 150px;
+        height: 100px;
+    }
+</style>
 </html>

@@ -9,34 +9,53 @@
 <html>
 <head>
     <title>Deleting customer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <h1>Delete customer</h1>
 <p>
-    <a href="/customers">Back to customer list</a>
+    <a href="/customers" class="btn btn-primary">Back To Customer List</a>
 </p>
 <form method="post">
     <h3>Are you sure?</h3>
-    <fieldset>
-        <legend>Customer information</legend>
-        <table>
+        <table cellpadding="10px" border="1px">
             <tr>
-                <td>Name: </td>
+                <th colspan="2">Customer Information</th>
+            </tr>
+            <tr>
+                <th>Name:</th>
                 <td>${requestScope["customer"].getName()}</td>
             </tr>
             <tr>
-                <td>Email: </td>
+                <th>Email:</th>
                 <td>${requestScope["customer"].getEmail()}</td>
             </tr>
             <tr>
-                <td>Address: </td>
+                <th>Address:</th>
                 <td>${requestScope["customer"].getAddress()}</td>
             </tr>
             <tr>
-                <td><input type="submit" value="Delete customer"></td>
+                <th>Image:</th>
+                <td><img src="${requestScope["customer"].getImage()}" alt="Image" width="100px" height="100px"></td>
             </tr>
         </table>
-    </fieldset>
+    <input type="submit" value="Delete customer" class="btn btn-danger">
 </form>
 </body>
+<style>
+    body {
+        font-family: Arial;
+        font-size: larger;
+    }
+</style>
 </html>
